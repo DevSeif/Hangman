@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace MyApplication
@@ -9,16 +10,16 @@ namespace MyApplication
         {
             int guessCount = 10;
             bool haveWon = false;
-            List<char> correctLetters = new List<char> ();
+            List<char> correctLetters = new List<char>();
             StringBuilder incorrectLetters = new StringBuilder();
-            string[] secretWords = new string[] {"ryssland", "frankrike", "turkiet", "tyskland", "storbritannien", "spanien", "ukraina", "polen", "nederländerna", "sverige", "danmark", "finland", "norge" };
+            string[] secretWords = new string[] { "ryssland", "frankrike", "turkiet", "tyskland", "storbritannien", "spanien", "ukraina", "polen", "nederländerna", "sverige", "danmark", "finland", "norge" };
             int randomNumber = new Random().Next(0, secretWords.Length);
             char[] secretWord = secretWords[randomNumber].ToCharArray();
 
-            while(guessCount > 0)
+            while (guessCount > 0)
             {
 
-                foreach(char character in secretWord)
+                foreach (char character in secretWord)
                 {
                     if (correctLetters.Contains(character))
                     {
@@ -28,7 +29,7 @@ namespace MyApplication
                     {
                         Console.Write(" _ ");
                     }
-                    
+
                 }
                 Console.WriteLine("");
                 Console.WriteLine($"Du har {guessCount} försök");
@@ -37,7 +38,7 @@ namespace MyApplication
                 string guess = Console.ReadLine();
                 guess = guess.ToLower();
 
-                if(guess.Length == 1)
+                if (guess.Length == 1)
                 {
                     bool isTheSame = IsTheSame(guess, incorrectLetters, correctLetters);
                     if (isTheSame == true)
@@ -57,7 +58,7 @@ namespace MyApplication
                             correctLetters.Add(guess[0]);
                         }
                     }
-                    
+
                 }
                 else if (guess.Length > 1)
                 {
@@ -70,16 +71,17 @@ namespace MyApplication
                     guessCount--;
                 }
 
-                if(secretWord.Length == correctLetters.Count + 1)
+                if (secretWord.Length == correctLetters.Count + 1)
                 {
                     haveWon = true;
                     break;
                 }
             }
 
-            if(haveWon == true)
+            if (haveWon == true)
             {
-                Console.WriteLine("Du vann!");
+                string svar = string.Join("", secretWord);
+                Console.WriteLine($"Du vann!, svaret var {svar.ToUpperInvariant()}");
             }
             else
             {
@@ -93,7 +95,7 @@ namespace MyApplication
             bool isTrue = false;
             foreach (char e in argChar)
             {
-                if(e == argLetter[0])
+                if (e == argLetter[0])
                 {
                     isTrue = true;
                 }
@@ -104,7 +106,7 @@ namespace MyApplication
         static bool IsTheSame(string argLetter, StringBuilder argString, List<char> argCorrect)
         {
             bool isTrue = false;
-            for(int i = 0; i < argString.Length; i++)
+            for (int i = 0; i < argString.Length; i++)
             {
                 if (argLetter.ToUpper()[0] == argString[i])
                 {
