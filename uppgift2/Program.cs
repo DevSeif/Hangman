@@ -12,7 +12,7 @@ namespace MyApplication
             bool haveWon = false;
             List<char> correctLetters = new List<char>();
             StringBuilder incorrectLetters = new StringBuilder();
-            string[] secretWords = new string[] { "ryssland", "frankrike", "turkiet", "tyskland", "storbritannien", "spanien", "ukraina", "polen", "nederländerna", "sverige", "danmark", "finland", "norge" };
+            string[] secretWords = new string[] { "ryssland", "frankrike", "turkiet", "tyskland", "spanien", "ukraina", "polen", "sverige", "danmark", "finland", "norge" };
             int randomNumber = new Random().Next(0, secretWords.Length);
             char[] secretWord = secretWords[randomNumber].ToCharArray();
             int secretWordCount = 0;
@@ -59,6 +59,7 @@ namespace MyApplication
                         {
                             correctLetters.Add(guess[0]);
                             secretWordCount += letterCheck;
+                            guessCount--;
                         }
                     }
 
@@ -84,7 +85,7 @@ namespace MyApplication
             if (haveWon == true)
             {
                 string svar = string.Join("", secretWord);
-                Console.WriteLine($"Du vann!, svaret var {svar.ToUpperInvariant()}");
+                Console.WriteLine($"Du vann!, svaret var {svar.ToUpper()}");
             }
             else
             {
