@@ -15,6 +15,8 @@ namespace MyApplication
             string[] secretWords = new string[] { "ryssland", "frankrike", "turkiet", "tyskland", "storbritannien", "spanien", "ukraina", "polen", "nederländerna", "sverige", "danmark", "finland", "norge" };
             int randomNumber = new Random().Next(0, secretWords.Length);
             char[] secretWord = secretWords[randomNumber].ToCharArray();
+            int secretWordCount = 0;
+            
 
             while (guessCount > 0)
             {
@@ -47,8 +49,8 @@ namespace MyApplication
                     }
                     else
                     {
-                        bool letterCheck = DoesItContain(guess, secretWord);
-                        if (letterCheck == false)
+                        int letterCheck = DoesItContain(guess, secretWord);
+                        if (letterCheck == 0)
                         {
                             incorrectLetters.Append(guess.ToUpper() + " ");
                             guessCount--;
@@ -56,6 +58,7 @@ namespace MyApplication
                         else
                         {
                             correctLetters.Add(guess[0]);
+                            secretWordCount += letterCheck;
                         }
                     }
 
@@ -71,7 +74,7 @@ namespace MyApplication
                     guessCount--;
                 }
 
-                if (secretWord.Length == correctLetters.Count + 1)
+                if (secretWord.Length == secretWordCount)
                 {
                     haveWon = true;
                     break;
@@ -90,14 +93,14 @@ namespace MyApplication
 
         }
 
-        static bool DoesItContain(string argLetter, char[] argChar)
+        static int DoesItContain(string argLetter, char[] argChar)
         {
-            bool isTrue = false;
+            int isTrue = 0;
             foreach (char e in argChar)
             {
                 if (e == argLetter[0])
                 {
-                    isTrue = true;
+                    isTrue++;
                 }
             }
             return isTrue;
